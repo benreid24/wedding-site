@@ -25,7 +25,9 @@ SECRET_KEY = ')pb8e#+1v78hkk3a%ypk4^%!)x=a-!r4c+zdg@dw(b5ov&_@0)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'benanna.love'
+]
 
 
 # Application definition
@@ -70,17 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'wedding.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation
