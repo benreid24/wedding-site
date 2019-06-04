@@ -9,3 +9,8 @@ def index(request):
 def rsvp(request):
     context = {}
     return render(request, 'rsvp.html', context)
+
+
+def details(request):
+    context = {}
+    return render(request, 'details.html', context)
