@@ -26,7 +26,8 @@ SECRET_KEY = ')pb8e#+1v78hkk3a%ypk4^%!)x=a-!r4c+zdg@dw(b5ov&_@0)'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'benanna.love'
+    'benanna.love',
+    'localhost'
 ]
 
 

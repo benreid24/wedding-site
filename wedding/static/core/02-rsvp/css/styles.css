@@ -260,7 +260,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 .contact-area .phone{ margin: 10px 0; color: #E45F74; }
 
-.contact-area .email{ margin: 10px 0; }
+.contact-area .email{ margin: 10px 0; color: #E45F74; }
 
 .contact-area .contact-form{ padding: 50px 40px; border-radius: 5px; box-shadow: 1px 15px 40px rgba(0,0,0,.3); 
 	background: #fff; }
