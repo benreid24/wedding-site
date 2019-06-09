@@ -80,6 +80,7 @@ b.light-color{ color: #444; }
 .icon{ font-size: 1.1em; display: inline-block; line-height: inherit; }
 
 [class^="icon-"]:before, [class*=" icon-"]:before{ line-height: inherit; }
+[class^="icofont-"]:before, [class*=" icofont-"]:before{ line-height: inherit; }
 
 
 
@@ -353,6 +354,8 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 
 .contact-area .phone{ margin: 10px 0; font-size: 2em; color: #E45F74; }
+
+.phone{ margin: 10px 0; font-size: 1em; color: #E45F74; }
 
 
 /* ---------------------------------
