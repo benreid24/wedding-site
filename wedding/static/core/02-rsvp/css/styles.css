@@ -74,6 +74,8 @@ b.light-color{ color: #444; }
 
 .icon{ font-size: 1.1em; display: inline-block; line-height: inherit; }
 
+.error { color: #ff2222; }
+
 [class^="icon-"]:before, [class*=" icon-"]:before{ line-height: inherit; }
 
 

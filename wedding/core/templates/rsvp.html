@@ -85,83 +85,113 @@
 					<div class="contact-form margin-bottom">
 						<h2 class="center-text">Are you going?</h2>
 						<h4 class="pre-title center-text">RSVP HERE!</h4>
-						<form method="post">
+						<form method="post" action="/rsvp" autocomplete="off">
+							{% csrf_token %}
 							<div class="row">
-							
 								<div class="col-sm-12 margin-bottom">
-									<label>Full Name</label>
-									<input class="name-input" type="text" >
+									<label for="name">Full Name</label>
+                                    {% if errors.name %}
+                                        <span><p class="error">{{ errors.name }}</p></span>
+                                    {% endif %}
+									<input class="name-input" type="text" name="name" autocomplete="on" id="name" value="{{ inputs.name }}">
 								</div>
+                            </div>
+                            <div class="row">
 								<div class="col-sm-12 margin-bottom">
-									<label>Email</label>
-									<input class="email-input" type="text" >
+									<label for="email">Email</label>
+                                    {% if errors.email %}
+                                        <span><p class="error">{{ errors.email }}</p></span>
+                                    {% endif %}
+									<input class="email-input" type="text" name="email" autocomplete="on" id="email" value="{{ inputs.email }}">
+								</div>
+                            </div>
+                            {% if errors.safari %}
+                                <div class="row">
+                                    <div class="col-sm-12 margin-bottom">
+                                        <span><p class="error">{{ errors.safari }}</p></span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="row">
+								<div class="col-sm-6 margin-bottom">
+									<label for="guests">Guests Attending</label>
+									<select class="event-select" name="guests" id="guests">
+										<option value="0" {{ inputs.guest0 }}>0</option>
+										<option value="1" {{ inputs.guest1 }}>1</option>
+										<option value="2" {{ inputs.guest2 }}>2</option>
+										<option value="3" {{ inputs.guest3 }}>3</option>
+										<option value="4" {{ inputs.guest4 }}>4</option>
+										<option value="5" {{ inputs.guest5 }}>5</option>
+										<option value="6" {{ inputs.guest6 }}>6</option>
+									</select>
 								</div>
 								<div class="col-sm-6 margin-bottom">
-									<label>Guests Attending</label>
-									<select class="event-select" name="option">
-										<option value="0"><span>0</span></option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
+									<label for="safari">Guests Riding Safari</label>
+									<select class="event-select" name="safari" id="safari">
+										<option value="0" {{ inputs.safari0 }}>0</option>
+										<option value="1" {{ inputs.safari1 }}>1</option>
+										<option value="2" {{ inputs.safari2 }}>2</option>
+										<option value="3" {{ inputs.safari3 }}>3</option>
+										<option value="4" {{ inputs.safari4 }}>4</option>
+										<option value="5" {{ inputs.safari5 }}>5</option>
+										<option value="6" {{ inputs.safari6 }}>6</option>
 									</select>
 								</div>
-								<div class="col-sm-6 margin-bottom">
-									<label>Guests Riding Safari</label>
-									<select class="event-select" name="option">
-										<option value="0"><span>0</span></option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-									</select>
-								</div>
-								<div class="col-sm-4 margin-bottom">
-									<label>Meal Option 1</label>
-									<select class="event-select" name="option">
-										<option value="0"><span>0</span></option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
+                            </div>
+                            {% if errors.meals %}
+                                <div class="row">
+                                    <div class="col-sm-12 margin-bottom">
+                                        <span><p class="error">{{ errors.meals }}</p></span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-sm-4 margin-bottom">
+									<label for="meal1">Meal Option 1</label>
+									<select class="event-select" name="meal1" id="meal1">
+										<option value="0" {{ inputs.meal10 }}>0</option>
+										<option value="1" {{ inputs.meal11 }}>1</option>
+										<option value="2" {{ inputs.meal12 }}>2</option>
+										<option value="3" {{ inputs.meal13 }}>3</option>
+										<option value="4" {{ inputs.meal14 }}>4</option>
+										<option value="5" {{ inputs.meal15 }}>5</option>
+										<option value="6" {{ inputs.meal16 }}>6</option>
 									</select>
 								</div>
 								<div class="col-sm-4 margin-bottom">
-									<label>Meal Option 2</label>
-									<select class="event-select" name="option">
-										<option value="0"><span>0</span></option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
+									<label for="meal2">Meal Option 2</label>
+									<select class="event-select" name="meal2" id="meal2">
+										<option value="0" {{ inputs.meal20 }}>0</option>
+										<option value="1" {{ inputs.meal21 }}>1</option>
+										<option value="2" {{ inputs.meal22 }}>2</option>
+										<option value="3" {{ inputs.meal23 }}>3</option>
+										<option value="4" {{ inputs.meal24 }}>4</option>
+										<option value="5" {{ inputs.meal25 }}>5</option>
+										<option value="6" {{ inputs.meal26 }}>6</option>
 									</select>
 								</div>
 								<div class="col-sm-4 margin-bottom">
-									<label>Meal Option 3</label>
-									<select class="event-select" name="option">
-										<option value="0"><span>0</span></option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
+									<label for="meal3">Meal Option 3</label>
+									<select class="event-select" name="meal3" id="meal3">
+										<option value="0" {{ inputs.meal30 }}>0</option>
+										<option value="1" {{ inputs.meal31 }}>1</option>
+										<option value="2" {{ inputs.meal32 }}>2</option>
+										<option value="3" {{ inputs.meal33 }}>3</option>
+										<option value="4" {{ inputs.meal34 }}>4</option>
+										<option value="5" {{ inputs.meal35 }}>5</option>
+										<option value="6" {{ inputs.meal36 }}>6</option>
 									</select>
 								</div>
+                            </div>
+                            <div class="row">
 								<div class="col-sm-12 margin-bottom">
-									<label>Notes</label>
-									<input class="event-input" type="text" >
+									<label for="notes">Notes</label>
+									<input class="event-input" type="text" name="notes" id="notes" value="{{ inputs.notes }}">
 								</div>
+                            </div>
+                            <div class="row">
 								<div class="col-sm-12 center-text">
-									<button class="btn"><b>I AM ATTENDING</b></button>
+									<button class="btn" type="submit"><b>I AM ATTENDING</b></button>
 								</div>
 								
 							</div><!-- row -->	
