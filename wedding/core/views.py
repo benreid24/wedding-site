@@ -14,6 +14,7 @@ def rsvp(request):
     if util.input_submitted(request):
         errors = util.validate_input(request)
         if not errors:
+            util.do_rsvp(request)
             return render(request, 'index.html', context)
         else:
             context['errors'] = errors

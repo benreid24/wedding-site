@@ -117,11 +117,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+DEFAULT_FROM_EMAIL = 'rsvp@benanna.love'
+SERVER_EMAIL = 'rsvp@benanna.love'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'premium51.web-hosting.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'rsvp@benanna.love'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
 cwd = os.path.abspath(os.path.dirname(__file__))
 secret = os.path.join(cwd, 'secret.txt')
 with open(secret, 'r') as file:
-    EMAIL_HOST_PASSWORD = file.read()
+    EMAIL_HOST_PASSWORD = file.read().replace('\n', '')

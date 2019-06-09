@@ -2,10 +2,20 @@ import re
 import smtplib
 import logging
 
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 
 EMAIL_REGEX = r"[^@]+@([^\.]+\.[^\.]+)+"
-logging.basicConfig(filename='errors.log', level=logging.ERROR)
+logging.basicConfig(filename='errors.log', level=logging.DEBUG)
+RSVP_TEMPLATE = """
+Name: {name}
+Email: {email}
+Guest Count: {guests}
+Safari Count: {safari}
+Meal Option 1: {meal1}
+Meal Option 2: {meal2}
+Meal Option 3: {meal3}
+Notes: {notes}
+"""
 
 
 def validate_input(request):
@@ -36,18 +46,17 @@ def input_submitted(request):
 
 
 def do_rsvp(request):
-    data = request.POST
+    data = request.POST.dict()
 
     try:
-        send_mail(
+        message = EmailMessage(
             'Wedding - Guest RSVP',
-            'Here is the message.',
-            'rsvp@benanna.love',
-            ['reidben24@gmail.com', 'anna.kasprzak@daemen.edu'],
-            fail_silently=False,
+            RSVP_TEMPLATE.format(**data),
+            to=['reidben24@gmail.com', 'anna.kasprzak@daemen.edu'],
         )
-    except smtplib.SMTPException as exc:
-        logging.error(f'Error sending rsvp: {exc}\n\nRSVP: {data}')
+        message.send(fail_silently=False)
+    except Exception as exc:
+        logging.error(f'Error sending rsvp: {str(exc)}\n\nRSVP: {data}')
 
 
 def generate_defaults(request):
