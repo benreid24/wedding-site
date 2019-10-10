@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Ben & Anna 2020</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+
+
+	<!-- Font -->
+
+	<link href="https://fonts.googleapis.com/css?family=Playball%7CBitter" rel="stylesheet">
+
+	<!-- Stylesheets -->
+
+	{% load static %}
+
+	<link rel="icon" type="image/png" href="{% static "core/favicon.ico" %}">
+
+	<link href="{% static "core/common-css/bootstrap.css" %}" rel="stylesheet">
+
+
+	<link href="{% static "core/common-css/fluidbox.min.css" %}" rel="stylesheet">
+
+	<link href="{% static "core/common-css/font-icon.css" %}" rel="stylesheet">
+
+
+	<link href="{% static "core/02-rsvp/css/styles.css" %}" rel="stylesheet">
+
+	<link href="{% static "core/02-rsvp/css/responsive.css" %}" rel="stylesheet">
+
+</head>
+<body>
+
+	<header>
+
+		<div class="container">
+
+			<a class="logo" href="#"><img src="{% static "core/images/logo-white.png" %}" alt="Logo"></a>
+
+			<div class="menu-nav-icon" data-nav-menu="#main-menu"><i class="icon icon-bars"></i></div>
+
+			<ul class="main-menu visible-on-click" id="main-menu">
+				<li><a href="/">HOME</a></li>
+				<li><a href="/details">THE WEDDING</a></li>
+				<li><a href="/rsvp">RSVP</a></li>
+			</ul><!-- main-menu -->
+
+		</div><!-- container -->
+	</header>
+
+
+	<div class="main-slider">
+		<div class="display-table center-text">
+			<div class="display-table-cell">
+				<div class="slider-content">
+
+					<h1 class="title">RSVP Confirmation</h1>
+
+				</div><!-- slider-content-->
+			</div><!--display-table-cell-->
+		</div><!-- display-table-->
+	</div><!-- main-slider -->
+
+
+	<section class="section contact-area">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-sm-12 col-md-4 col-lg-6">
+					<div class="margin-bottom display-table">
+						<div class="display-table-cell">
+							<div class="heading">
+								<h2 class="title">Contact Us</h2>
+							</div>
+							<h3><a href="tel:716-698-2195" class="phone">(716) 698 - 2195</a></h3>
+							<h3><a href="mailto:reidben24@gmail.com" class="email">reidben24@gmail.com</a></h3>
+
+						</div><!-- display-table-cell -->
+					</div><!-- margin-bottom -->
+				</div><!-- col-sm-6 -->
+
+				<div class="col-sm-12 col-md-8 col-lg-6">
+					<div class="contact-form margin-bottom">
+						<h2 class="center-text">RSVP Confirmed!</h2>
+						<h4 class="pre-title center-text">{{ name }}</h4>
+						<p class="desc margin-bottom">{{ response }}</p>
+					</div><!-- contact-form -->
+				</div><!-- col-sm-6 -->
+
+			</div><!-- row -->
+		</div><!-- container -->
+	</section><!-- section -->
+
+
+	<!-- SCIPTS -->
+
+	<script src="{% static "core/common-js/jquery-3.1.1.min.js" %}"></script>
+
+	<script src="{% static "core/common-js/tether.min.js" %}"></script>
+
+	<script src="{% static "core/common-js/bootstrap.js" %}"></script>
+
+	<script src="{% static "core/common-js/jquery.countdown.min.js" %}"></script>
+
+	<script src="{% static "core/common-js/jquery.fluidbox.min.js" %}"></script>
+
+
+	<script src="{% static "core/common-js/scripts.js" %}"></script>
+
+</body>
+</html>

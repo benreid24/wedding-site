@@ -1,5 +1,4 @@
 import re
-import smtplib
 import logging
 
 from django.core.mail import EmailMessage
@@ -16,6 +15,9 @@ Meal Option 2: {meal2}
 Meal Option 3: {meal3}
 Notes: {notes}
 """
+RSVP_GOING_TEMPLATE = "Thank you for RSVP'ing! We have you down for {count} guest{pl}. " \
+                      "If there are any updates feel free to email us or RSVP again"
+RSVP_DENIED_TEMPLATE = 'We are sorry you cannot come. Thank you for letting us know!'
 
 
 def validate_input(request):
@@ -87,3 +89,17 @@ def generate_defaults(request):
             values['meal3' + str(i)] = 'selected' if int(data['meal3']) == i else ''
 
     return values
+
+
+def get_rsvp_response(request):
+    data = request.POST.dict()
+    context = {
+        'name': data['name'],
+        'response': RSVP_DENIED_TEMPLATE
+    }
+    if int(data['guests']) > 0:
+        context['response'] = RSVP_GOING_TEMPLATE.format(**{
+            'count': data['guests'],
+            'pl': 's' if int(data['guests']) > 1 else ''
+        })
+    return context
