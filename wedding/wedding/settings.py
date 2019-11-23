@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'benanna.love',
+    'www.benanna.love',
     'localhost'
 ]
 
