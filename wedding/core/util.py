@@ -10,9 +10,11 @@ Name: {name}
 Email: {email}
 Guest Count: {guests}
 Safari Count: {safari}
-Meal Option 1: {meal1}
-Meal Option 2: {meal2}
-Meal Option 3: {meal3}
+Petite Filet Mignon: {meal1}
+Sliced Roast Tenderloin: {meal2}
+Chicken Fingers: {meal3}
+Vegetable Stir Fry: {meal4}
+Roasted Vegetable Wellington: {meal5}
 Notes: {notes}
 """
 RSVP_GOING_TEMPLATE = "Thank you for RSVP'ing! We have you down for {count} guest{pl}. " \
@@ -34,10 +36,12 @@ def validate_input(request):
     m1 = int(data['meal1'])
     m2 = int(data['meal2'])
     m3 = int(data['meal3'])
+    m4 = int(data['meal4'])
+    m5 = int(data['meal5'])
 
     if saf > n:
         errors['safari'] = 'Too many guests on safari'
-    if (m1 + m2 + m3) != n:
+    if (m1 + m2 + m3 + m4 + m5) != n:
         errors['meals'] = 'Meal total must match guest count'
 
     return errors
@@ -75,6 +79,8 @@ def generate_defaults(request):
         values['meal1' + str(i)] = ''
         values['meal2' + str(i)] = ''
         values['meal3' + str(i)] = ''
+        values['meal4' + str(i)] = ''
+        values['meal5' + str(i)] = ''
 
     if data:
         values['name'] = data['name']
@@ -87,6 +93,8 @@ def generate_defaults(request):
             values['meal1' + str(i)] = 'selected' if int(data['meal1']) == i else ''
             values['meal2' + str(i)] = 'selected' if int(data['meal2']) == i else ''
             values['meal3' + str(i)] = 'selected' if int(data['meal3']) == i else ''
+            values['meal4' + str(i)] = 'selected' if int(data['meal4']) == i else ''
+            values['meal5' + str(i)] = 'selected' if int(data['meal5']) == i else ''
 
     return values
 
