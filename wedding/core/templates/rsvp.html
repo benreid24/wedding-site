@@ -93,23 +93,18 @@
 					<div class="contact-form margin-bottom">
 						<h2 class="center-text">Are you going?</h2>
 						<h4 class="pre-title center-text">RSVP HERE!</h4>
+						<div id="errorMsg" hidden></div>
 						<form method="post" action="/rsvp" autocomplete="off" id="rsvpform">
 							{% csrf_token %}
 							<div class="row">
 								<div class="col-sm-12 margin-bottom">
-									<label for="name">Full Name/Family Name</label>
-                                    {% if errors.name %}
-                                        <span><p class="error">{{ errors.name }}</p></span>
-                                    {% endif %}
+									<label for="name">Family Name/Full Name</label>
 									<input class="name-input" type="text" name="name" autocomplete="on" id="name" value="{{ inputs.name }}">
 								</div>
                             </div>
                             <div class="row">
 								<div class="col-sm-12 margin-bottom">
 									<label for="email">Email</label>
-                                    {% if errors.email %}
-                                        <span><p class="error">{{ errors.email }}</p></span>
-                                    {% endif %}
 									<input class="email-input" type="text" name="email" autocomplete="on" id="email" value="{{ inputs.email }}">
 								</div>
                             </div>

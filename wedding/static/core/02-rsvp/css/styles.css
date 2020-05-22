@@ -74,14 +74,24 @@ b.light-color{ color: #444; }
 
 .icon{ font-size: 1.1em; display: inline-block; line-height: inherit; }
 
-.error { color: #ff2222; }
+.error { color: #ff2222; text-indent:8px; }
 
 [class^="icon-"]:before, [class*=" icon-"]:before{ line-height: inherit; }
 
 .guestDiv {
-    border: 2px solid red;
+	background-color: #ffcccc;
+	border-radius: 5%;
+	padding: 5px;
     margin-top: 8px;
     margin-bottom: 4px;
+}
+
+.guestInput {
+	margin: 3px;
+}
+
+.errorBox {
+	border: 3px solid #c53030;
 }
 
 /* ---------------------------------

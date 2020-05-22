@@ -13,7 +13,6 @@ var meals = [
 function addGuest() {
     var div = document.getElementById("dynamic_elements");
     var id = "guest" + guestCount;
-    console.log(id);
 
     guestCount += 1;
     actualGuestCount += 1;
@@ -35,12 +34,14 @@ function addGuest() {
     nameInput.type = "text";
     nameInput.id = nameInput.name = id+"-name";
     nameInput.placeholder = "Guest name";
+    nameInput.className = 'guestInput';
     nameDiv.appendChild(nameInput);
 
     var safDiv = document.createElement("div");
     safDiv.className = "col-sm-6";
     var safInput = document.createElement("select");
     safInput.name = safInput.id = id+"-safari";
+    safInput.className = 'guestInput';
     var safPrompt = document.createElement("option");
     safPrompt.innerText = safPrompt.value = "Riding Safari?";
     var safYes = document.createElement("option");
@@ -63,6 +64,7 @@ function addGuest() {
     mealDiv.className = "col-sm-7";
     var mealInput = document.createElement("select");
     mealInput.id = mealInput.name = id+'-meal';
+    mealInput.className = 'guestInput';
     for (var i = 0; i<meals.length; i += 1)
     {
         var opt = document.createElement("option");
@@ -88,7 +90,6 @@ function addGuest() {
 }
 
 function delGuest(id) {
-    console.log("remove" + id);
     var guestDiv = document.getElementById(id);
     guestDiv.remove();
 
@@ -97,9 +98,90 @@ function delGuest(id) {
     gcr.innerText = actualGuestCount;
 }
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return re.test(String(email).toLowerCase());
+}
+
 function doRsvp() {
-    console.log("rsvp sent");
-    // TODO - validate then submit
-    var form = document.getElementById("rsvpform");
-    form.submit();
+    var passed = true;
+
+    var errorList = document.getElementById("errorMsg");
+    var addError = function(msg) {
+        var err = document.createElement('p');
+        err.className = 'error';
+        err.innerText = msg;
+        errorList.appendChild(err);
+        errorList.hidden = false;
+        passed = false;
+    }
+    while (errorList.lastChild) {
+        errorList.removeChild(errorList.lastChild);
+    }
+
+    var name = document.getElementById("name");
+    if (name.value.length < 3) {
+        console.log('name too short');
+        name.classList.add('errorBox');
+        addError('Please enter a name');
+    }
+    else
+        name.classList.remove('errorBox');
+
+    var email = document.getElementById('email');
+    if (!validateEmail(email.value)) {
+        console.log('invalid email');
+        email.classList.add('errorBox');
+        addError('Please enter a valid email');
+    }
+    else
+        email.classList.remove('errorBox');
+
+    var nameError = false;
+    var mealError = false;
+    var safariError = false;
+    for (var i = 0; i < guestCount; i += 1) {
+        var gname = document.getElementById('guest'+i+'-name');
+        if (gname) {
+            if (gname.value.length < 3) {
+                console.log('invalid guest name');
+                if (!nameError) {
+                    nameError = true;
+                    addError('Guest is missing name');
+                }
+                gname.classList.add('errorBox');
+            }
+            else
+                gname.classList.remove('errorBox');
+
+            var gsaf = document.getElementById('guest'+i+'-safari');
+            if (gsaf.value == 'Riding Safari?') {
+                console.log('invalid guest safari');
+                if (!safariError) {
+                    safariError = true;
+                    addError('Please select guest safari option');
+                }
+                gsaf.classList.add('errorBox');
+            }
+            else
+                gsaf.classList.remove('errorBox');
+
+            var gmeal = document.getElementById('guest'+i+'-meal');
+            if (gmeal.value == 'Meal Choice?') {
+                console.log('invalid guest meal');
+                if (!mealError) {
+                    mealError = true;
+                    addError('Please select guest meal');
+                }
+                gmeal.classList.add('errorBox');
+            }
+            else
+                gmeal.classList.remove('errorBox');
+        }
+    }
+
+    if (passed) {
+        var form = document.getElementById("rsvpform");
+        form.submit();
+    }
 }
