@@ -1,0 +1,40 @@
+{
+    "version": "2.0.0",
+    "type": "shell",
+    "tasks": [
+        {
+            "label": "Unix: Build venv",
+            "command": "cd wedding && virtualenv -p python3 venv && source venv/bin/activate && pip install -r requirements.txt",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Windows: Build venv",
+            "command": "cd wedding && virtualenv -p python3 venv && source venv/Scripts/activate && pip install -r requirements.txt",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Windows: Run Server",
+            "command": "cd wedding && source venv/Scripts/activate && python manage.py runserver --insecure",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Unix: Run Server",
+            "command": "cd wedding && source venv/bin/activate && python manage.py runserver --insecure",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}

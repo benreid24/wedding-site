@@ -12,14 +12,10 @@ def rsvp(request):
     context = {}
 
     if util.input_submitted(request):
-        errors = util.validate_input(request)
-        if not errors:
-            util.do_rsvp(request)
-            return confirm(request)
-        else:
-            context['errors'] = errors
+        gc = util.do_rsvp(request)
+        print(gc)
+        return confirm(request, gc)
 
-    context['inputs'] = util.generate_defaults(request)
     return render(request, 'rsvp.html', context)
 
 
@@ -28,6 +24,6 @@ def details(request):
     return render(request, 'details.html', context)
 
 
-def confirm(request):
-    context = util.get_rsvp_response(request)
+def confirm(request, gc):
+    context = util.get_rsvp_response(gc)
     return render(request, 'confirm.html', context)

@@ -62,6 +62,7 @@ function addGuest() {
     var mealDiv = document.createElement("div");
     mealDiv.className = "col-sm-7";
     var mealInput = document.createElement("select");
+    mealInput.id = mealInput.name = id+'-meal';
     for (var i = 0; i<meals.length; i += 1)
     {
         var opt = document.createElement("option");
@@ -99,4 +100,6 @@ function delGuest(id) {
 function doRsvp() {
     console.log("rsvp sent");
     // TODO - validate then submit
+    var form = document.getElementById("rsvpform");
+    form.submit();
 }

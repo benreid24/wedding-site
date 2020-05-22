@@ -3,48 +3,34 @@ import logging
 
 from django.core.mail import EmailMessage
 
+from . import models
+
 EMAIL_REGEX = r"[^@]+@([^\.]+\.[^\.]+)+"
 logging.basicConfig(filename='errors.log', level=logging.DEBUG)
 RSVP_TEMPLATE = """
 Name: {name}
 Email: {email}
 Guest Count: {guests}
-Safari Count: {safari}
-Petite Filet Mignon: {meal1}
-Sliced Roast Tenderloin: {meal2}
-Chicken Fingers: {meal3}
-Vegetable Stir Fry: {meal4}
-Roasted Vegetable Wellington: {meal5}
 Notes: {notes}
 """
 RSVP_GOING_TEMPLATE = "Thank you for RSVP'ing! We have you down for {count} guest{pl}. " \
                       "If there are any updates feel free to email us or RSVP again"
 RSVP_DENIED_TEMPLATE = 'We are sorry you cannot come. Thank you for letting us know!'
+RSVP_ERROR = 'An error has occured. Please try again, or email us with your details'
 
 
-def validate_input(request):
-    data = request.POST
-    errors = {}
-
-    if not data['name']:
-        errors['name'] = 'Please input your name'
-    if not re.fullmatch(EMAIL_REGEX, data['email']):
-        errors['email'] = 'Invalid email address'
-
-    n = int(data['guests'])
-    saf = int(data['safari'])
-    m1 = int(data['meal1'])
-    m2 = int(data['meal2'])
-    m3 = int(data['meal3'])
-    m4 = int(data['meal4'])
-    m5 = int(data['meal5'])
-
-    if saf > n:
-        errors['safari'] = 'Too many guests on safari'
-    if (m1 + m2 + m3 + m4 + m5) != n:
-        errors['meals'] = 'Meal total must match guest count'
-
-    return errors
+def _get_guests(data):
+    guest_count = int(data['guestCount'])
+    guests = []
+    for i in range(0, guest_count):
+        if f'guest{i}-name' in data.keys():
+            guest = {
+                'name': data[f'guest{i}-name'],
+                'safari': data[f'guest{i}-safari'],
+                'meal': data[f'guest{i}-meal']
+            }
+            guests.append(guest)
+    return guests
 
 
 def input_submitted(request):
@@ -54,60 +40,58 @@ def input_submitted(request):
 def do_rsvp(request):
     data = request.POST.dict()
 
+    name = data['name']
+    email = data['email']
+    guests = _get_guests(data)
+    notes = data['notes']
+
     try:
-        message = EmailMessage(
-            'Wedding - Guest RSVP',
-            RSVP_TEMPLATE.format(**data),
-            to=['reidben24@gmail.com', 'anna.kasprzak@daemen.edu'],
-        )
-        message.send(fail_silently=False)
+        rsvp = models.Rsvp(family_name=name, email=email, notes=notes)
+        rsvp.save()
+        print(rsvp.id)
+        guest_models = [
+            models.Guest(
+                rsvp=rsvp,
+                name=g['name'],
+                meal=g['meal'],
+                safari=g['safari']
+            ) for g in guests
+        ]
+        print(guest_models)
+
+        for g in guest_models:
+            print(f'saving {g}')
+            g.save()
+
+        pdata = {
+            'name': name,
+            'email': email,
+            'guests': len(guests),
+            'notes': notes
+        }
+        #message = EmailMessage(
+        #    'Wedding - Guest RSVP',
+        #    RSVP_TEMPLATE.format(**pdata),
+        #    to=['reidben24@gmail.com', 'anna.kasprzak@daemen.edu'],
+        #)
+        #message.send(fail_silently=False)
+        return len(guests)
     except Exception as exc:
+        print(f'{exc}')
         logging.error(f'Error sending rsvp: {str(exc)}\n\nRSVP: {data}')
 
-
-def generate_defaults(request):
-    data = request.POST
-
-    values = {
-        'name': '',
-        'email': '',
-        'notes': ''
-    }
-    for i in range(0, 7):
-        values['guest' + str(i)] = ''
-        values['safari' + str(i)] = ''
-        values['meal1' + str(i)] = ''
-        values['meal2' + str(i)] = ''
-        values['meal3' + str(i)] = ''
-        values['meal4' + str(i)] = ''
-        values['meal5' + str(i)] = ''
-
-    if data:
-        values['name'] = data['name']
-        values['email'] = data['email']
-        values['notes'] = data['notes']
-
-        for i in range(0, 7):
-            values['guest' + str(i)] = 'selected' if int(data['guests']) == i else ''
-            values['safari' + str(i)] = 'selected' if int(data['safari']) == i else ''
-            values['meal1' + str(i)] = 'selected' if int(data['meal1']) == i else ''
-            values['meal2' + str(i)] = 'selected' if int(data['meal2']) == i else ''
-            values['meal3' + str(i)] = 'selected' if int(data['meal3']) == i else ''
-            values['meal4' + str(i)] = 'selected' if int(data['meal4']) == i else ''
-            values['meal5' + str(i)] = 'selected' if int(data['meal5']) == i else ''
-
-    return values
+    return -1
 
 
-def get_rsvp_response(request):
-    data = request.POST.dict()
+def get_rsvp_response(gc):
     context = {
-        'name': data['name'],
         'response': RSVP_DENIED_TEMPLATE
     }
-    if int(data['guests']) > 0:
+    if gc > 0:
         context['response'] = RSVP_GOING_TEMPLATE.format(**{
-            'count': data['guests'],
-            'pl': 's' if int(data['guests']) > 1 else ''
+            'count': gc,
+            'pl': 's' if gc > 1 else ''
         })
+    elif gc < 0:
+        context['response'] = RSVP_ERROR
     return context

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wedding',
-    'core'
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -74,6 +74,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'wedding.wsgi.application'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'test.db',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+     }
+}
 
 
 # Password validation
@@ -128,7 +139,7 @@ EMAIL_HOST_USER = 'rsvp@benanna.love'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-cwd = os.path.abspath(os.path.dirname(__file__))
-secret = os.path.join(cwd, 'secret.txt')
-with open(secret, 'r') as file:
-    EMAIL_HOST_PASSWORD = file.read().replace('\n', '')
+#cwd = os.path.abspath(os.path.dirname(__file__))
+#secret = os.path.join(cwd, 'secret.txt')
+#with open(secret, 'r') as file:
+#    EMAIL_HOST_PASSWORD = file.read().replace('\n', '')
