@@ -78,7 +78,11 @@ b.light-color{ color: #444; }
 
 [class^="icon-"]:before, [class*=" icon-"]:before{ line-height: inherit; }
 
-
+.guestDiv {
+    border: 2px solid red;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
 
 /* ---------------------------------
 2. COMMONS FOR PAGE DESIGN
@@ -92,6 +96,10 @@ b.light-color{ color: #444; }
 .btn-2{ font-size: .9em; padding: 15px 30px; border-radius: 1px; letter-spacing: 2px; border: 1px solid #E45F74; }
 
 .btn-2:hover{ background: #E45F74; color: #fff; }
+
+.btn-3{ font-size: .9em; padding: 15px 30px; border-radius: 1px; letter-spacing: 2px; border: 1px solid #E45F74; background: #c40233; color: #fff; }
+
+.btn-3:hover{ background: #E45F74; color: #fff; }
 
 .border-btn{ font-size: .9em; padding-bottom: 5px; background: none; color: inherit; border: 0; position: relative; overflow: hidden; }
 

@@ -15,19 +15,27 @@
 	
 	{% load static %}
 	
-	<link rel="icon" type="image/png" href="{% static "core/favicon.ico" %}">
+	<link rel="icon" type="image/png" href="{% static "core/favicon.ico" %}"/>
 	
-	<link href="{% static "core/common-css/bootstrap.css" %}" rel="stylesheet">
-	
-	
-	<link href="{% static "core/common-css/fluidbox.min.css" %}" rel="stylesheet">
-	
-	<link href="{% static "core/common-css/font-icon.css" %}" rel="stylesheet">
+	<link href="{% static "core/common-css/bootstrap.css" %}" rel="stylesheet"/>
 	
 	
-	<link href="{% static "core/02-rsvp/css/styles.css" %}" rel="stylesheet">
+	<link href="{% static "core/common-css/fluidbox.min.css" %}" rel="stylesheet"/>
 	
-	<link href="{% static "core/02-rsvp/css/responsive.css" %}" rel="stylesheet">
+	<link href="{% static "core/common-css/font-icon.css" %}" rel="stylesheet"/>
+	
+	
+	<link href="{% static "core/02-rsvp/css/styles.css" %}" rel="stylesheet"/>
+	
+	<link href="{% static "core/02-rsvp/css/responsive.css" %}" rel="stylesheet"/>
+
+    <script type="text/javascript" src="{% static "core/common-js/rsvp.js" %}"/>
+    <script type="text/javascript">
+        function testFn()
+        {
+            console.log("testing");
+        }
+    </script>
 	
 </head>
 <body>
@@ -105,108 +113,20 @@
 									<input class="email-input" type="text" name="email" autocomplete="on" id="email" value="{{ inputs.email }}">
 								</div>
                             </div>
-                            {% if errors.safari %}
-                                <div class="row">
-                                    <div class="col-sm-12 margin-bottom">
-                                        <span><p class="error">{{ errors.safari }}</p></span>
-                                    </div>
-                                </div>
-                            {% endif %}
                             <div class="row">
-								<div class="col-sm-6 margin-bottom">
-									<label for="guests">Guests Attending</label>
-									<select class="event-select" name="guests" id="guests">
-										<option value="0" {{ inputs.guest0 }}>0</option>
-										<option value="1" {{ inputs.guest1 }}>1</option>
-										<option value="2" {{ inputs.guest2 }}>2</option>
-										<option value="3" {{ inputs.guest3 }}>3</option>
-										<option value="4" {{ inputs.guest4 }}>4</option>
-										<option value="5" {{ inputs.guest5 }}>5</option>
-										<option value="6" {{ inputs.guest6 }}>6</option>
-									</select>
+                                <div class="col-sm-2 center-text"></div>
+                                <div class="col-sm-5 center-text">
+									<span><p>Guests Attending: </p><p id="guestCounter">0</p></span>
 								</div>
-								<div class="col-sm-6 margin-bottom">
-									<label for="safari">Guests Riding Safari</label>
-									<select class="event-select" name="safari" id="safari">
-										<option value="0" {{ inputs.safari0 }}>0</option>
-										<option value="1" {{ inputs.safari1 }}>1</option>
-										<option value="2" {{ inputs.safari2 }}>2</option>
-										<option value="3" {{ inputs.safari3 }}>3</option>
-										<option value="4" {{ inputs.safari4 }}>4</option>
-										<option value="5" {{ inputs.safari5 }}>5</option>
-										<option value="6" {{ inputs.safari6 }}>6</option>
-									</select>
+                                <div class="col-sm-3 center-text">
+									<button class="btn-2" onclick="addGuest()" type="button"><b>Add Guest</b></button>
 								</div>
-                            </div>
-                            {% if errors.meals %}
-                                <div class="row">
-                                    <div class="col-sm-12 margin-bottom">
-                                        <span><p class="error">{{ errors.meals }}</p></span>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <div class="row">
-                                <div class="col-sm-4 margin-bottom">
-									<label for="meal1">Petite Filet Mignon</label>
-									<select class="event-select" name="meal1" id="meal1">
-										<option value="0" {{ inputs.meal10 }}>0</option>
-										<option value="1" {{ inputs.meal11 }}>1</option>
-										<option value="2" {{ inputs.meal12 }}>2</option>
-										<option value="3" {{ inputs.meal13 }}>3</option>
-										<option value="4" {{ inputs.meal14 }}>4</option>
-										<option value="5" {{ inputs.meal15 }}>5</option>
-										<option value="6" {{ inputs.meal16 }}>6</option>
-									</select>
-								</div>
-								<div class="col-sm-4 margin-bottom">
-									<label for="meal2">Roast Tenderloin of Beef</label>
-									<select class="event-select" name="meal2" id="meal2">
-										<option value="0" {{ inputs.meal20 }}>0</option>
-										<option value="1" {{ inputs.meal21 }}>1</option>
-										<option value="2" {{ inputs.meal22 }}>2</option>
-										<option value="3" {{ inputs.meal23 }}>3</option>
-										<option value="4" {{ inputs.meal24 }}>4</option>
-										<option value="5" {{ inputs.meal25 }}>5</option>
-										<option value="6" {{ inputs.meal26 }}>6</option>
-									</select>
-								</div>
-								<div class="col-sm-4 margin-bottom">
-									<label for="meal3">Chicken Fingers (12 & under)</label>
-									<select class="event-select" name="meal3" id="meal3">
-										<option value="0" {{ inputs.meal30 }}>0</option>
-										<option value="1" {{ inputs.meal31 }}>1</option>
-										<option value="2" {{ inputs.meal32 }}>2</option>
-										<option value="3" {{ inputs.meal33 }}>3</option>
-										<option value="4" {{ inputs.meal34 }}>4</option>
-										<option value="5" {{ inputs.meal35 }}>5</option>
-										<option value="6" {{ inputs.meal36 }}>6</option>
-									</select>
-								</div>
-								<div class="col-sm-6 margin-bottom">
-									<label for="meal3">Vegetable Stir Fry in Teriyaki Sauce</label>
-									<select class="event-select" name="meal4" id="meal4">
-										<option value="0" {{ inputs.meal40 }}>0</option>
-										<option value="1" {{ inputs.meal41 }}>1</option>
-										<option value="2" {{ inputs.meal42 }}>2</option>
-										<option value="3" {{ inputs.meal43 }}>3</option>
-										<option value="4" {{ inputs.meal44 }}>4</option>
-										<option value="5" {{ inputs.meal45 }}>5</option>
-										<option value="6" {{ inputs.meal46 }}>6</option>
-									</select>
-								</div>
-								<div class="col-sm-6 margin-bottom">
-									<label for="meal3">Roasted Vegetable Wellington</label>
-									<select class="event-select" name="meal5" id="meal5">
-										<option value="0" {{ inputs.meal50 }}>0</option>
-										<option value="1" {{ inputs.meal51 }}>1</option>
-										<option value="2" {{ inputs.meal52 }}>2</option>
-										<option value="3" {{ inputs.meal53 }}>3</option>
-										<option value="4" {{ inputs.meal54 }}>4</option>
-										<option value="5" {{ inputs.meal55 }}>5</option>
-										<option value="6" {{ inputs.meal56 }}>6</option>
-									</select>
-								</div>
-                            </div>
+							</div><!-- row -->
+
+							<!-- Dynamic Elements Here -->
+                            <input type="hidden" id="guestCount" value="0"/>
+							<div id="dynamic_elements"></div>
+
                             <div class="row">
 								<div class="col-sm-12 margin-bottom">
 									<label for="notes">Additional Notes</label>
@@ -215,7 +135,7 @@
                             </div>
                             <div class="row">
 								<div class="col-sm-12 center-text">
-									<button class="btn" type="submit"><b>RSVP</b></button>
+									<button class="btn" type="button" onclick="doRsvp()"><b>RSVP</b></button>
 								</div>
 								
 							</div><!-- row -->	
